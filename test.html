@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="text.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="guessNo.css">
     <title>Conditional Statements Example</title>
 </head>
 <body>
     <h1>Showcasing if / else Conditions in JavaScript</h1>
     <p>This page demonstrates simple conditional statements using JavaScript's <code>if</code>, <code>else if</code>, and <code>else</code>.</p>
+
+<div class="box">
+    <h2>Guess the Number (1–10)</h2>
+
+    <label>Difficulty:</label>
+    <select id="difficulty" onchange="setDifficulty()">
+        <option value="easy">Easy (5 tries)</option>
+        <option value="normal">Normal (3 tries)</option>
+        <option value="hard">Hard (1 try)</option>
+    </select>
+
+    <input id="guess" type="number" min="1" max="10" placeholder="Enter your guess">
+
+    <button onclick="checkGuess()">Guess</button>
+    <button onclick="resetGame()" style="background:#007bff;">Reset</button>
+
+    <p class="message" id="message"></p>
+    <p id="attempts"></p>
+</div>
 
      <section class="example">
         <h2>Example 3 — Grade Assigner (if / else if / else)</h2>
@@ -18,6 +38,7 @@
         <button id="gradeBtn">Get Grade</button>
         <p class="result" id="gradeResult" aria-live="polite"></p>
     </section>
+    <script src="guessNo.js"></script>
     <script src="test.js"></script>
 </body>
-</html>
+</html>>
