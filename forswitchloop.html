@@ -5,63 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Switch Loop</title>
   <style>
-    body {
-      font-family: 'Orbitron', Arial, sans-serif;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #f5f5f5;
-      text-align: center;
-      padding: 50px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-      font-size: 2.8em;
-      color: #00e6ff;
-      text-shadow: 0 0 8px rgba(0, 230, 255, 0.6);
-      letter-spacing: 2px;
-    }
-    button {
-      background: linear-gradient(45deg, #ff9800, #ff5722);
-      border: none;
-      color: #fff;
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
-    }
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(255, 87, 34, 0.6);
-      opacity: 0.95;
-    }
-    button:disabled {
-      background: #555;
-      color: #aaa;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-    #status {
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 230, 255, 0.6);
-      border-radius: 10px;
-      font-size: 18px;
-      line-height: 1.5;
-      box-shadow: 0 0 12px rgba(0, 230, 255, 0.3);
-      animation: fadePulse 3s infinite;
-    }
-    @keyframes fadePulse {
-      0% { box-shadow: 0 0 8px rgba(0, 230, 255, 0.3); }
-      50% { box-shadow: 0 0 16px rgba(0, 230, 255, 0.6); }
-      100% { box-shadow: 0 0 8px rgba(0, 230, 255, 0.3); }
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #dfdfdf;
+  color: #333;
+  text-align: center;
+  padding: 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+button {
+  background: #007acc;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #005fa3;
+}
+
+button:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+#status {
+  margin-top: 25px;
+  padding: 15px;
+  background: #919191;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
   </style>
 </head>
 <body>
@@ -72,61 +66,62 @@
   <button onclick="playTurn('defend')">Defend</button>
   <button onclick="playTurn('heal')">Heal</button>
 
-  <div id="status">Player HP: 100 | Enemy HP: 100</div>
+  <div id="status">Player HP: 100 | monster HP: 150</div>
 
   <script>
-    let playerHP = 100;
-    let enemyHP = 100;
+let playerHP = 100;
+let monsterHP = 150;
 
-    function playTurn(action) {
-      switch (action) {
-        case "attack":
-          enemyHP -= 10;
-          playerHP -= 5; // enemy counterattacks
-          log("You attack the enemy! Enemy HP -10, Player HP -5");
-          break;
+function playTurn(action) {
+  switch (action) {
+    case "attack":
+      monsterHP -= 10;
+      playerHP -= 5; // monster counterattacks
+      log("You attack the monster! Monster HP -10, Player HP -5");
+      break;
 
-        case "defend":
-          playerHP -= 1; // reduced damage
-          log("You defend! Player HP -1");
-          break;
+    case "defend":
+      playerHP -= 1; // reduced damage
+      log("You defend! Player HP -1");
+      break;
 
-        case "heal":
-          playerHP += 5;
-          playerHP -= 2; // enemy attacks while healing
-          log("You heal! Net Player HP +3");
-          break;
+    case "heal":
+      playerHP += 5;
+      playerHP -= 2; // monster attacks while healing
+      log("You heal! Net Player HP +3");
+      break;
 
-        default:
-          playerHP -= 5;
-          log("Unknown action! Player HP -5");
-      }
+    default:
+      playerHP -= 5;
+      log("Unknown action! Player HP -5");
+  }
 
-      updateStatus();
+  updateStatus();
 
-      if (enemyHP <= 0) {
-        log("🎉 Enemy defeated!");
-        disableButtons();
-      }
-      if (playerHP <= 0) {
-        log("💀 You are defeated...");
-        disableButtons();
-      }
-    }
+  if (monsterHP <= 0) {
+    log("Monster defeated!");
+    disableButtons();
+  }
+  if (playerHP <= 0) {
+    log("You are defeated...");
+    disableButtons();
+  }
+}
 
-    function updateStatus() {
-      document.getElementById("status").innerHTML =
-        `Player HP: ${playerHP} | Enemy HP: ${enemyHP}`;
-    }
+function updateStatus() {
+  document.getElementById("status").innerHTML =
+    `Player HP: ${playerHP} | Monster HP: ${monsterHP}`;
+}
 
-    function log(message) {
-      const statusDiv = document.getElementById("status");
-      statusDiv.innerHTML += "<br>" + message;
-    }
+function log(message) {
+  const statusDiv = document.getElementById("status");
+  statusDiv.innerHTML += "<br>" + message;
+}
 
-    function disableButtons() {
-      document.querySelectorAll("button").forEach(btn => btn.disabled = true);
-    }
+function disableButtons() {
+  document.querySelectorAll("button").forEach(btn => btn.disabled = true);
+}
+
   </script>
 </body>
 </html>
